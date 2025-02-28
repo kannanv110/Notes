@@ -10,9 +10,13 @@ jobs:
         runs-on: [self-hosted, gh-runner]
         steps:
             - name: Sleep for 5 secs
-              run: sleep 5    
+              run: |
+                sleep 5
+                date
     simple_workflow:
         runs-on: [self-hosted, gh-runner]
         steps:
             - name: Just print message
-              run: echo "Hello World!"
+              run: |
+                echo "Hello World!"
+                date
