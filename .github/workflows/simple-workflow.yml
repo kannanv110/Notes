@@ -1,4 +1,4 @@
-Name: Simple workflow
+name: Simple workflow
 
 on:
     push:
@@ -10,5 +10,3 @@ jobs:
         steps:
             - name: Just print message
               run: echo "Hello World!"
-
-            
