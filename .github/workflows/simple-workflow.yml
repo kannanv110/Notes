@@ -8,6 +8,7 @@ on:
 jobs:
     sleep_job:
         runs-on: [self-hosted, gh-runner]
+        needs: simple_workflow
         steps:
             - name: Sleep for 5 secs
               run: |
