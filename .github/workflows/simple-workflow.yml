@@ -6,6 +6,11 @@ on:
             - main
     workflow_dispatch:
 jobs:
+    sleep_job:
+        runs-on: [self-hosted, gh-runner]
+        steps:
+            - name: Sleep for 5 secs
+              run: sleep 5    
     simple_workflow:
         runs-on: [self-hosted, gh-runner]
         steps:
