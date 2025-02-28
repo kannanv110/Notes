@@ -1,0 +1,14 @@
+Name: Simple workflow
+
+on:
+    push:
+        branches:
+            - main
+jobs:
+    simple_workflow:
+        runs-on: [self-hosted, gh-runner]
+        steps:
+            - name: Just print message
+              run: echo "Hello World!"
+
+            
