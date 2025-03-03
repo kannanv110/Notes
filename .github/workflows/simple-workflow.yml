@@ -1,10 +1,16 @@
 name: Simple workflow
 
 on:
-    push:
-        branches:
-            - main
+    # push:
+    #     branches:
+    #         - main
     workflow_dispatch:
+        inputs:
+            skip_step_one:
+                description: Do you want to skip step1?
+                type: boolean
+                required: true
+                default: false
 env:
     test: "kannan"        
 jobs:
@@ -21,12 +27,19 @@ jobs:
         steps:
             - name: Just print message
               run: |
+                echo "\$skip_step_one: $skip_step_one"
+                echo "\$test: ${test}
                 if [ ${test} == "kannan" ]
                 then
                     echo "Success and exiting..."
                     exit
                 fi
-                echo "\$test: ${test}. This is after the condition"
+                echo "This is after the condition"
             - name: This is after step1
               run: |
+
+                if [ $skip_step_one == "true" ]
+                then
+                    exit
+                fi
                 echo "Hello World!"
