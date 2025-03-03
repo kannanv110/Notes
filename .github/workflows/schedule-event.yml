@@ -3,7 +3,7 @@
 name: This example of Schedule event
 on:
     schedule:
-    - cron: "10 8 * * *"
+    - cron: "15 8 * * *"
 jobs:
     simple_schedule:
         name: Simple schedule
