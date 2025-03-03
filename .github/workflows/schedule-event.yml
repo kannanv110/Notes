@@ -1,0 +1,15 @@
+name: This example of Schedule event
+
+on:
+    schedule:
+        - cron: "7 35 * * *" # Run daily at 07:35 AM UTC
+jobs:
+    simple_schedule:
+        name: Simple schedule
+        runs-on: [self-hosted, u22-wsl, gh-runner]
+        steps:
+            - name: Print the schedule time
+              run: |
+                echo "This workflow schedule to run on ${{ github.event.schedule }}"
+
+            
