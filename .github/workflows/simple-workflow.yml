@@ -12,7 +12,8 @@ on:
                 required: true
                 default: false
 env:
-    test: "kannan"        
+    test: "kannan"
+    skip_step_one: ${{ inputs.skip_step_one }}
 jobs:
     # sleep_job:
     #     runs-on: [self-hosted, gh-runner]
