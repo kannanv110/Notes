@@ -5,19 +5,28 @@ on:
         branches:
             - main
     workflow_dispatch:
+env:
+    test: "kannan"        
 jobs:
-    sleep_job:
-        runs-on: [self-hosted, gh-runner]
-        needs: simple_workflow
-        steps:
-            - name: Sleep for 5 secs
-              run: |
-                sleep 5
-                date
+    # sleep_job:
+    #     runs-on: [self-hosted, gh-runner]
+    #     needs: simple_workflow
+    #     steps:
+    #         - name: Sleep for 5 secs
+    #           run: |
+    #             sleep 5
+    #             date
     simple_workflow:
         runs-on: [self-hosted, gh-runner]
         steps:
             - name: Just print message
               run: |
+                if [ ${test} == "kannan" ]
+                then
+                    echo "Success and exiting..."
+                    exit
+                fi
+                echo "\$test: ${test}. This is after the condition"
+            - name: This is after step1
+              run: |
                 echo "Hello World!"
-                date
