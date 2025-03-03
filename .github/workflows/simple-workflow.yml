@@ -28,7 +28,7 @@ jobs:
             - name: Just print message
               run: |
                 echo "\$skip_step_one: $skip_step_one"
-                echo "\$test: ${test}
+                echo "\$test: ${test}"
                 if [ ${test} == "kannan" ]
                 then
                     echo "Success and exiting..."
