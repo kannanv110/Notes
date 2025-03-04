@@ -1,0 +1,27 @@
+---
+name: Custom variable
+on:
+    workflow_dispatch:
+env:
+    GLOBAL_VAR: "This is set as global veriable"
+jobs:
+    custom_variable:
+        runs-on: [self-hosted, gh-runner]
+        env:
+            JOB_VAR: "This is set as job variable"
+        steps:
+            - name: Print global and job variable
+              run: |
+                echo "\$GLOBAL_VAR: $GLOBAL_VAR"
+                echo "\$JOB_VAR: $JOB_VAR"
+            - name: Set step variable
+              env:
+                  STEP_VAR: "This is set as step variable"
+              run: |
+                echo "\$GLOBAL_VAR: $GLOBAL_VAR"
+                echo "\$JOB_VAR: $JOB_VAR"
+                echo "\$STEP_VAR: $STEP_VAR"
+            - name: Let me check whether I can access \$STEP_VAR
+              run: |
+                echo "\$STEP_VAR: $STEP_VAR"
+...
