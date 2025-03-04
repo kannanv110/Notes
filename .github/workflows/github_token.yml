@@ -11,4 +11,7 @@ jobs:
             - name: Print GITHUB_TOKEN
               run: |
                 echo "\$GITHUB_TOKEN: $GITHUB_TOKEN"
+            - name: Make API request
+              run: |
+                curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/owner/repo
 ...
