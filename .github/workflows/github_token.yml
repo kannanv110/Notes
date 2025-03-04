@@ -1,0 +1,14 @@
+---
+name: Sample for GITHUB_TOKEN
+on:
+    workflow_dispatch:
+env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+jobs:
+    sample_for_github_token:
+        runs-on: [self-hosted, gh-runner]
+        steps:
+            - name: Print GITHUB_TOKEN
+              run: |
+                echo "\$GITHUB_TOKEN: $GITHUB_TOKEN"
+...
