@@ -21,7 +21,8 @@ jobs:
                 echo "\$GLOBAL_VAR: $GLOBAL_VAR"
                 echo "\$JOB_VAR: $JOB_VAR"
                 echo "\$STEP_VAR: $STEP_VAR"
-            - name: Let me check whether I can access \$STEP_VAR
+                echo "STEP_VAR='This is new step variable" >> $GITHUB_ENV
+            - name: Let me check whether I can access $STEP_VAR
               run: |
                 echo "\$STEP_VAR: $STEP_VAR"
 ...
