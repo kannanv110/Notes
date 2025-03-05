@@ -19,7 +19,7 @@ jobs:
         steps:
             - name: Print input vars
               run: |
-                echo gh_input:${{ inputs.image_list }}
+                echo gh_input:'${{ inputs.image_list }}'
                 echo env:$image_list
 
     # sleep_job:
