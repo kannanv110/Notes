@@ -16,8 +16,8 @@ jobs:
         steps:
             - name: Print the name
               run: |
-                name=${{ inputs.name }}
-                if [ ${{ github.event.schedule }} == '30 11 * * *' ]
+                name=\"${{ inputs.name }}\"
+                if [ '${{ github.event.schedule }}' == '30 11 * * *' ]
                 then
                     name='SriVelan'
                 fi
