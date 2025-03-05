@@ -12,7 +12,7 @@ on:
                 type: string
 jobs:
     sample-job:
-        runs-on: [self-hosted, gh-runner]
+        runs-on: [self-hosted, u22-wsl, gh-runner]
         steps:
             - name: Print the name
               run: |
