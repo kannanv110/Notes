@@ -2,7 +2,7 @@
 name: This example of schedule and workflow_dispatch
 on:
     schedule:
-        - cron: '50 11 * * *'
+        - cron: '10 12 * * *'
     workflow_dispatch:
         inputs:
             name:
@@ -16,8 +16,8 @@ jobs:
         steps:
             - name: Print the name
               run: |
-                name=\"${{ inputs.name }}\"
-                if [ '${{ github.event.schedule }}' == '30 11 * * *' ]
+                name='${{ inputs.name }}'
+                if [ '${{ github.event.schedule }}' == '10 12 * * *' ]
                 then
                     name='SriVelan'
                 fi
