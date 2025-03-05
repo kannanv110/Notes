@@ -16,6 +16,7 @@ jobs:
         steps:
             - name: Print the name
               run: |
+                date
                 name='${{ inputs.name }}'
                 if [ '${{ github.event.schedule }}' == '10 12 * * *' ]
                 then
