@@ -6,15 +6,22 @@ on:
     #         - main
     workflow_dispatch:
         inputs:
-            skip_step_one:
-                description: Do you want to skip step1?
-                type: boolean
-                required: true
-                default: false
+            image_list:
+                description: Image list
+                type: string
+                required: false
 env:
     test: "kannan"
-    skip_step_one: ${{ inputs.skip_step_one }}
+    image_list: ${{ inputs.image_list }}
 jobs:
+    simple_workflow:
+        runs-on: [self-hosted, gh-runner]
+        steps:
+            - name: Print input vars
+              run: |
+                echo gh_input:${{ inputs.image_list }}
+                echo env:$image_list
+
     # sleep_job:
     #     runs-on: [self-hosted, gh-runner]
     #     needs: simple_workflow
@@ -23,24 +30,24 @@ jobs:
     #           run: |
     #             sleep 5
     #             date
-    simple_workflow:
-        runs-on: [self-hosted, gh-runner]
-        steps:
-            - name: Just print message
-              run: |
-                echo "\$skip_step_one: $skip_step_one"
-                echo "\$test: ${test}"
-                if [ ${test} == "kannan" ]
-                then
-                    echo "Success and exiting..."
-                    exit
-                fi
-                echo "This is after the condition"
-            - name: This is after step1
-              run: |
+    # simple_workflow:
+    #     runs-on: [self-hosted, gh-runner]
+    #     steps:
+    #         - name: Just print message
+    #           run: |
+    #             echo "\$skip_step_one: $skip_step_one"
+    #             echo "\$test: ${test}"
+    #             if [ ${test} == "kannan" ]
+    #             then
+    #                 echo "Success and exiting..."
+    #                 exit
+    #             fi
+    #             echo "This is after the condition"
+    #         - name: This is after step1
+    #           run: |
 
-                if [ $skip_step_one == "true" ]
-                then
-                    exit
-                fi
-                echo "Hello World!"
+    #             if [ $skip_step_one == "true" ]
+    #             then
+    #                 exit
+    #             fi
+    #             echo "Hello World!"
