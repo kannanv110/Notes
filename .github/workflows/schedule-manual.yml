@@ -1,0 +1,19 @@
+---
+name: This example of schedule and workflow_dispatch
+on:
+    schedule:
+        - cron: '15 11 * * *'
+    workflow_dispatch:
+        inputs:
+            name:
+                description: 'Name of the person'
+                required: true
+                default: 'Kannan Vellaichamy'
+                type: string
+jobs:
+    sample-job:
+        runs-on: [self-hosted, gh-runner]
+        steps:
+            - name: Print the name
+              run: |
+                echo "Hello ${{ inputs.name }}"
