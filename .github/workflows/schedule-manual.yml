@@ -2,7 +2,7 @@
 name: This example of schedule and workflow_dispatch
 on:
     schedule:
-        - cron: '30 11 * * *'
+        - cron: '50 11 * * *'
     workflow_dispatch:
         inputs:
             name:
