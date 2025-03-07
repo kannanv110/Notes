@@ -1,0 +1,21 @@
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: hrapp-rc
+  labels:
+    app: hrapp
+    type: front-end
+spec:
+  template:
+    metadata:
+      name: nginx
+      labels:
+        app: hrapp
+        type: front-end
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+  replicas: 3
+...
