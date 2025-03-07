@@ -77,9 +77,9 @@ minikube stop
 ### What is pod?
 - The smallest unit of computing that can be deployed and managed.
 - Its a group of one or more containers that share same resources
-like Storage, Network and configuration data.
+  like Storage, Network and configuration data.
 - Containers within a pod can communicate each other via localhost
-because they share the same network namespace.
+  because they share the same network namespace.
 
 ### How to create pod?
 Command:-
@@ -564,35 +564,8 @@ kubectl rollout history deployment/myapp-deployment
 ### Perform the Rolling Deployment
 The Rolling Deployment create new replicaset and create pod with new version image and delete pod from old replicaset. The image version can be update by 2 methods. Edit deployment definition file and update the docker image version and apply the configuration.
 
-#### Current deployment definition
-```yaml
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: webapp-deployment
-  labels:
-    app: hr-webapp
-    type: front-end
-spec:
-  template:
-    metadata:
-      name: webapp-pods
-      labels:
-        app: hr-webapp
-        type: front-end
-    spec:
-      containers:
-        - name: nginx-container
-          image: nginx:1.26
-  replicas: 3
-  selector:
-    matchLabels:
-      app: hr-webapp
-...
-```
 
-#### Updating the nginx image version to latest
+#### Method#1: Updating yaml file with the nginx image version to latest
 ```yaml
 ---
 apiVersion: apps/v1
@@ -619,10 +592,35 @@ spec:
       app: hr-webapp
 ...
 ```
-#### Apply rolling update
 ```shell
 # Apply the rolling update
-kubectl appply -f webapp_deployment.yml
+kubectl apply -f webapp_deployment.yml --record
 # Get status of the rolling update
 kubectl rollout status deployment/webapp-deployment
+kubectl rollout history deployment/webapp-deployment
+kubectl describe deployment/webapp-deployment
+```
+
+#### Method#2: Edit the running deployment and update nginx version
+```shell
+# Change the version, save and quit. 
+kubectl edit deployment webapp-deployment --record
+# Here --record will update the change cause for rollout
+# Get status of the rolling update
+kubectl rollout status deployment/webapp-deployment
+kubectl rollout history deployment/webapp-deployment
+kubectl describe deployment/webapp-deployment
+```
+
+#### Method#3: Update the container image version directly
+```shell
+# Update the version of the container image from cli
+kubectl set image deployment/webapp-deployment nginx-conatiner=nginx:latest --record
+# Get the status of rollout
+kubectl rollout status deployment/webapp-deployment
+```
+
+### Rollback the deployment
+```shell
+kubectl rollout undo deployment/webapp-deployment
 ```
