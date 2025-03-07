@@ -10,6 +10,7 @@ https://github.com/timothywarner-org/actions-cert-prep
 LinkedIn AI Assist keyword: 
   - Help me understand this better
   - Can you simplify this?
+  - provide me detailed notes about this
 
 ## GitHub Overview
 GitHub is a collaborative platform for developers, owned by Microsoft. It offers public and private repositories and various plans (Free, Pro, Team, Enterprise). GitHub is known for source code control using Git and features like GitHub Copilot for AI-powered coding assistance.
@@ -459,3 +460,153 @@ Here, echo "Hello, GitHub Actions!" instructs the runner to print "Hello, GitHub
 You can instruct the runner to upload or download files, which is useful for sharing artifacts between different steps or jobs in your workflow.
 #### Setting Outputs
 By setting output parameters, you can pass data from one step to another, making your workflows more dynamic and interconnected.
+
+## Use encrypted secrets to store sensitive information
+### Encrypted Secrets
+GitHub allows you to store sensitive information securely as encrypted secrets. These secrets are stored encrypted and can be accessed in your workflows using the secrets context.
+### Creating Encrypted Secrets
+You can create encrypted secrets at the repository level by navigating to the repository settings on GitHub, selecting "Secrets," and then adding new secrets. These secrets are encrypted by GitHub and stored securely.
+### Accessing Secrets in Workflows
+In your workflow files, you can access these secrets using the secrets context. For example, if you have a secret named API_KEY, you can use it in your workflow like this:
+```yaml
+env:
+  API_KEY: ${{ secrets.API_KEY }}
+```
+### Practical Use Case
+Imagine you have a deployment script that requires an API key. Instead of hardcoding the API key in your script, you can store it as a secret and reference it in your workflow. This way, the API key is never exposed in plain text.
+### GitHub Actions Expressions Syntax
+The syntax ${{ secrets.YOUR_SECRET_NAME }} is part of GitHub Actions expressions, allowing you to dynamically access secrets and environment variables within your workflows.
+### Security Best Practices
+Always use encrypted secrets for sensitive data to prevent exposure and potential data breaches. Avoid placing sensitive information directly in your workflow files.
+
+## Default Environment Variables
+Default environment variables are predefined by GitHub and provide metadata about the environment in which your workflows run. These variables can be used to access information about the runner, such as the operating system, runner name, and more.
+### Environment Variables
+These are in-memory data elements that store information needed for workflows. They can include both sensitive and non-sensitive data.
+### Default Environment Variables
+GitHub provides several default environment variables that define the metadata of the environment. These variables can be accessed in your workflows to perform conditional logic, reporting, and provide more context and details.
+### Usage
+You can use these default environment variables to access information about the runner, such as the operating system and size. This can be helpful for making decisions within your workflows based on the environment.
+### Example:
+```yaml
+name: Print Environment Variables
+
+on: [push]
+
+jobs:
+  print-vars:
+  runs-on: ubuntu-latest
+  steps:
+  - name: Checkout code
+  uses: actions/checkout@v2
+
+  - name: Print default environment variables
+    run: |
+      echo "GitHub Repository: ${{ github.repository }}"
+      echo "GitHub Actor: ${{ github.actor }}"
+      echo "GitHub Workflow: ${{ github.workflow }}"
+      echo "GitHub Run ID: ${{ github.run_id }}"
+      echo "GitHub Run Number: ${{ github.run_number }}"
+```
+### Explanation
+- ${{ github.repository }}: This variable holds the name of the repository.
+- ${{ github.actor }}: This variable holds the username of the person who triggered the workflow.
+- ${{ github.workflow }}: This variable holds the name of the workflow.
+- ${{ github.run_id }}: This variable holds the unique identifier of the workflow run.
+- ${{ github.run_number }}: This variable holds the run number of the workflow.
+
+## Custom Environment Variables
+
+### Scopes for Environment Variables
+#### Workflow Level
+Environment variables set at this level are available throughout the entire workflow, across all jobs and steps.
+#### Job Level
+Environment variables set at this level are available only within the specific job.
+#### Step Level
+Environment variables set at this level are available only within the specific step.
+
+### Using the env Keyword
+To define environment variables, use the env keyword in your workflow YAML file.
+Depending on where you place the env keyword, you can control the scope of the environment variables.
+
+### Example Workflow
+Here's an example to illustrate the different scopes:
+
+```yaml
+name: Example Workflow
+
+on: [push]
+
+env:
+  GLOBAL_VAR: "This is a global variable"
+
+jobs:
+  example-job:
+    runs-on: ubuntu-latest
+    env:
+      JOB_VAR: "This is a job-level variable"
+    steps:
+      - name: Print global variable
+        run: echo $GLOBAL_VAR
+      - name: Print job variable
+        run: echo $JOB_VAR
+      - name: Set and print step variable
+        run: |
+          echo "STEP_VAR=This is a step-level variable" >> $GITHUB_ENV
+          echo $STEP_VAR
+```
+### Explanation
+#### Global Variable
+ GLOBAL_VAR is defined at the workflow level and is accessible in all jobs and steps.
+#### Job Variable
+JOB_VAR is defined at the job level and is accessible only within the example-job.
+#### Step Variable
+STEP_VAR is defined within a step using the GITHUB_ENV file, making it available only within that step.
+
+Key Points
+Flexibility: You can define environment variables at different levels to control their scope and usage.
+Usage: Use the env keyword to set environment variables and the GITHUB_ENV file to set step-level variables dynamically.
+
+
+## What is GITHUB_TOKEN?
+### Definition
+GITHUB_TOKEN is a built-in secret that is autogenerated for every repository at GitHub.
+### Purpose
+It allows workflows to interact with the GitHub API securely without needing to set up additional authentication.
+
+### Usage of GITHUB_TOKEN
+#### Secure Access
+The GITHUB_TOKEN can be used to authenticate API requests securely within your workflows.
+#### Out-of-the-Box
+This token is available by default and does not require any additional setup.
+
+### Example Usage
+YAML Configuration: In a workflow YAML file, you might see something like this:
+```yaml
+jobs:
+  example-job:
+  runs-on: ubuntu-latest
+  steps:
+  - name: Checkout code
+    uses: actions/checkout@v2
+  - name: Make API request
+    run: |
+      curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/owner/repo
+```
+#### Explanation
+In this example, GITHUB_TOKEN is used to authenticate a curl request to the GitHub API.
+
+
+### Security Context
+##### GitHub Actions Bot
+When GITHUB_TOKEN is used, it operates under a special GitHub-side identity called the github-actions bot.
+#### Permissions
+The token allows full read-write access within your repository. For accessing a remote repository, the remote must grant the github-actions bot the appropriate permissions.
+
+### Practical Use Cases
+#### API Requests
+Use GITHUB_TOKEN to make authenticated API requests to GitHub services.
+#### Automated Workflows
+Automate tasks such as creating issues, commenting on pull requests, or managing repository settings without exposing sensitive credentials.
+
+These notes should help you understand the purpose and usage of the GITHUB_TOKEN secret in your GitHub Actions workflows. This can be particularly useful for securely automating tasks and interacting with the GitHub API in your CI/CD pipelines.
