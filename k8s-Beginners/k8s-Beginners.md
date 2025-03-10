@@ -624,3 +624,76 @@ kubectl rollout status deployment/webapp-deployment
 ```shell
 kubectl rollout undo deployment/webapp-deployment
 ```
+
+### Kubenetes Networking
+In docker the IP address assigned to container and in k8s cluster the IP address assigned to POD. Each pod on the cluster will get assign to an ipaddress at the time of creation.
+Pods can communicate with each other through IP address configured on the local network. Pods can't access the pods on other nodes using this local IP address.
+
+k8s cluster expect as conifgure the network that should meet below criteria.
+
+- All containers/pods can communicate to one another without NAT.
+- All nodes can communicate with all containers and vice-versa without NAT.
+
+We no need to build our own networking as there are multiple pre build networking solutions available and they are cisco ACI network, cilium, flannel, calico, nsx, Big cloud fabric, etc,.
+
+### Kubernetes Service
+Kubernetes services are a crucial component of the Kubernetes architecture, designed to enable communication between different applications and pods. Here's a detailed overview of Kubernetes services:
+#### Definition
+A Kubernetes Service acts as an abstraction layer that defines a logical set of pods and a policy by which to access them. Services enable stable networking and connectivity within a Kubernetes cluster despite the dynamic nature of pods.
+### Types of Services
+There are several types of Kubernetes services, primarily:
+
+#### ClusterIP
+Exposes the service on a cluster-internal IP. This means that only processes within the cluster can access the service.
+#### NodePort
+Exposes the service on each node’s IP at a static port. This allows external traffic to access the service.
+#### LoadBalancer
+Creates a load balancer for the service (often used on cloud providers), making it accessible externally.
+#### ExternalName
+Maps the service to a DNS name (not commonly used).
+
+### Key Components
+#### Label Selector
+Services use labels to find the pods they need to route traffic to.
+#### Ports
+Each service specifies a set of ports that define how to connect to the pods.
+#### Endpoints
+These are automatically managed by Kubernetes and represent the actual pods that are part of the service.
+
+### Example for NodePort
+```yaml
+apiVersion: v1
+kind: Service
+meta:
+  name: hrapp-frontend
+  labels:
+    app: hrapp
+    type: frontent
+spec:
+  type: NodePort
+  ports:
+    - targetPort: 80
+      port: 80
+      nodePort: 30008
+  selector:
+    app: hrapp
+    type: frontend
+```
+### Example for ClusterIP
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app-service
+spec:
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: ClusterIP
+```
+
+### Accessing Services
+You can access and manage services using the kubectl command. For example, running `kubectl get svc` lists all services in the cluster, showing details such as type, cluster IP, external IP, and ports.
