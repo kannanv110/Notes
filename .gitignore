@@ -1,2 +1,4 @@
 actions-runner
 .token
+terraform.tfstate*
+.terraform*

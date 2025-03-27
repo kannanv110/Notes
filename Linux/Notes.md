@@ -10,3 +10,6 @@ It is majorly used for the following purposes:
  - Record system calls by a process
  - Signals received by a process
  - Trace running processes
+
+## List installed file from the installed pkg
+ - Ubuntu: `dpkg-query -L <package_name>`
