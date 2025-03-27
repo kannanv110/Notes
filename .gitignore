@@ -2,3 +2,4 @@ actions-runner
 .token
 terraform.tfstate*
 .terraform*
+resume.md
