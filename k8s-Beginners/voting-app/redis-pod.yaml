@@ -12,5 +12,3 @@ spec:
       image: redis
       ports:
         - containerPort: 6379
-          name: redis-pod
-          protocol: TCP
