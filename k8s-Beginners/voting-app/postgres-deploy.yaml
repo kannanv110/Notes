@@ -5,9 +5,7 @@ metadata:
   name: postgres-deploy
   labels:
     name: postgres-deploy
-    labels:
-      name: postgres-deploy
-      app: demo-voting-app
+    app: demo-voting-app
 spec:
   template:
     metadata:
@@ -27,7 +25,7 @@ spec:
             - name: POSTGRES_PASSWORD
               value: "postgres"
             - name: POSTGRES_HOST_AUTH_METHOD
-              value: trust
+              value: "trust"
   selector:
     matchLabels:
       name: postgres-pod
