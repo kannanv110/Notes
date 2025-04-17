@@ -11,5 +11,4 @@ It is majorly used for the following purposes:
  - Signals received by a process
  - Trace running processes
 
-## List installed file from the installed pkg
- - Ubuntu: `dpkg-query -L <package_name>`
+## [RPM GPG keys](https://www.redhat.com/en/blog/rpm-gpg-verify-packages)
