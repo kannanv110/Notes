@@ -1,0 +1,1 @@
+### Add secs in prompt to show how much time it took to complete the command

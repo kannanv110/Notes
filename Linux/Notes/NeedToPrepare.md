@@ -1,0 +1,14 @@
+ - selinux - done
+ - tcpdump sync and ack - done
+ - huge pages - done
+ - oom kill - done
+ - kernel
+ - boot process
+ - grubby
+ - uefi
+ - iptables/firewalld
+ - apply kernel parameters
+ - performance tools
+ - sosreport - done
+ - kdump and analyze kdump - done
+ 
