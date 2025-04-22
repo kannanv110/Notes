@@ -11,4 +11,10 @@
  - performance tools
  - sosreport - done
  - kdump and analyze kdump - done
+ - Mount NFS, Samba
+ - Boot grub menu
+ - LVM
+ - Disk parted
+ - Performance again
+ - firewall again
  
