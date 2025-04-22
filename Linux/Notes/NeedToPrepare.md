@@ -2,13 +2,13 @@
  - tcpdump sync and ack - done
  - huge pages - done
  - oom kill - done
- - kernel
- - boot process
- - grubby
- - uefi
- - iptables/firewalld
- - apply kernel parameters
- - performance tools
+ - kernel - done
+ - boot process - done
+ - grubby - done
+ - uefi - done
+ - iptables/firewalld - done
+ - apply kernel parameters - done
+ - performance tools - done
  - sosreport - done
  - kdump and analyze kdump - done
  
