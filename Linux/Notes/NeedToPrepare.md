@@ -18,3 +18,14 @@
  - Performance again
  - firewall again
  
+
+ - What is buffer/cache?
+ - What is runq-sz?
+ - How to check the network statistics?
+ - How to check the network throughput?
+ - strace options/args?
+ - How to start process with low oom_score?
+ - What is vm.nr_hugepages?
+ - What is Linux Audit and purpose?
+ - What is Disk encryption and how it works?
+ - SSSD Auth?
