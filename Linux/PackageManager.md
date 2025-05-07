@@ -1,5 +1,7 @@
 # Linux Package Manager
 
+## Links and reference
+ * [yum-dnf-common-issues](https://learn.microsoft.com/en-us/troubleshoot/azure/virtual-machines/linux/yum-dnf-common-issues?tabs=rhel89%2Crhel)
 ## YUM (Yellowdog Updater, Modified)
 The YUM (Yellowdog Updater, Modified) package manager offers several significant advantages for managing software on RPM-based Linux distributions:
 
